@@ -1,0 +1,4 @@
+To run: write a class with a main method and create a Board object, then
+call RookPoly.solve() on it.
+
+The board can be edited at the top of the Board class.
