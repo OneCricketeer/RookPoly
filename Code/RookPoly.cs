@@ -6,23 +6,23 @@ namespace ConsoleApplications.RookPolynomial
 {
      public class RookPoly
     {
-        Board board = new Board();
+        Chessboard board = new Chessboard();
         
         // Calculates and returns the rook polynomial for the given board matrix
-        public static Polynomial solve(Board board)
+        public static void solve(Chessboard board)
         {
             if (board.Count == 0)
-                return new Polynomial();
+                board.polynomial = new Polynomial();
             int[] intersect = board.greatestIntersection;
             Polynomial x = new Polynomial(0, 1);
-            return board.deleteCell(intersect[0], intersect[1]) + x * board.deleteRowCol(intersect[0], intersect[1]);
+            board.polynomial = board.deleteCell(intersect[0], intersect[1]) + x * board.deleteRowCol(intersect[0], intersect[1]);
 
         }
 
         // Caller to the static solve
-        public Polynomial solve()
+        public void solve()
         {
-            return RookPoly.solve(this.board);
+            RookPoly.solve(this.board);
         }
 
         // Prints the board based on a 0-1 matrix with 1 being valid tiles
@@ -30,7 +30,7 @@ namespace ConsoleApplications.RookPolynomial
         {
             #region Initializataion
 
-            Board b = new Board(board);
+            Chessboard b = new Chessboard(board);
             StringBuilder sb = new StringBuilder();
             int width = b.Width, height = b.Height;
             int row = 0, col = 0;

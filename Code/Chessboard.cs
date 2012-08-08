@@ -3,34 +3,36 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ConsoleApplications.RookPolynomial
 {
-    public class Board : ICloneable
+    public class Chessboard : ICloneable
     {
         public int[][] board { get; set; }
+        public Polynomial polynomial;
 
         // Initialization of the board matrix
-        public Board()
+        public Chessboard()
         {
 
             // 0 = "hole" or invalid tile
             // 1 = valid tile to place a rook
             this.board = new int[][]
                  {
-//                    new int[] {1, 1, 1, 1},
-//                    new int[] {1, 1, 1, 1},
-//                    new int[] {1, 1, 1, 1},
-//                    new int[] {1, 1, 1, 1},
+                    new int[] {1, 1, 1, 1},
+                    new int[] {1, 1, 1, 1},
+                    new int[] {1, 1, 1, 1},
+                    new int[] {1, 1, 1, 1},
 
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
-                    new int[] {1, 1, 1, 1, 1, 1, 1, 1},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {1, 1, 1, 1, 1, 1, 1, 0},
+//                    new int[] {0, 0, 0, 0, 0, 0, 0, 0},
 //                    new int[] {0, 0, 0, 0, 0, 0, 0, 0, 1},
 //                    new int[] {1, 0, 0, 1, 1, 1, 1, 1, 1},
 //                    new int[] {1, 0, 0, 1, 1, 1, 1, 0, 0},
@@ -40,7 +42,7 @@ namespace ConsoleApplications.RookPolynomial
                  };
         }
 
-        public Board(int[][] board)
+        public Chessboard(int[][] board)
         {
             this.board = board;
         }
@@ -179,7 +181,7 @@ namespace ConsoleApplications.RookPolynomial
         // Returns a RookPolynomial of the board 
         public Polynomial deleteCell(int row, int col)
         {
-            Board newboard = new Board(DeepCopy(board));
+            Chessboard newboard = new Chessboard(DeepCopy(board));
             //            Board newboard = (Board)this.Clone();
             newboard.board[row][col] = 0;
 
@@ -192,7 +194,7 @@ namespace ConsoleApplications.RookPolynomial
             // else, recurse using deleteCell + x * deleteRowCol
             else
             {
-                // Console.WriteLine("{0}", newboard);
+//                newboard.shrink(); Console.WriteLine("C\n{0}", newboard);
                 int[] intersect = newboard.greatestIntersection;
                 Polynomial x = new Polynomial(0, 1);
                 return newboard.deleteCell(intersect[0], intersect[1]) + x * newboard.deleteRowCol(intersect[0], intersect[1]);
@@ -203,7 +205,7 @@ namespace ConsoleApplications.RookPolynomial
         // Returns a RookPolynomial of the board
         public Polynomial deleteRowCol(int row, int col)
         {
-            Board newboard = new Board(DeepCopy(board));
+            Chessboard newboard = new Chessboard(DeepCopy(board));
             //            Board newboard = (Board)this.Clone();
             int maxDim = Width > Height ? Width : Height;
             for (int i = 0; i < maxDim; i++)
@@ -226,7 +228,7 @@ namespace ConsoleApplications.RookPolynomial
             // else, recurse using deleteCell + x * deleteRowCol
             else
             {
-                // Console.WriteLine("{0}", newboard);
+//                newboard.shrink(); Console.WriteLine("RC\n{0}", newboard);
                 int[] intersect = newboard.greatestIntersection;
                 Polynomial x = new Polynomial(0, 1);
                 return newboard.deleteCell(intersect[0], intersect[1]) + x * newboard.deleteRowCol(intersect[0], intersect[1]);
@@ -394,28 +396,59 @@ namespace ConsoleApplications.RookPolynomial
         // The outer all-zero rows and columns are to be ignored when copying
         public void shrink()
         {
+//            foreach (int[] r in board)
+//            {
+//                foreach (int c in r)
+//                {
+//                    Console.Write(c);
+//                }
+//                Console.WriteLine();
+//            }
+            List<int[]> newboard = new List<int[]>();
+
             int width = Width;
             int height = Height;
             int startRow = 0, startCol = 0;
-            object[] reduced = null;
-            ArrayList rows = new ArrayList();
-            while (allZeroCol(width)) width--;
-            while (allZeroCol(height)) height--;
-            while (allZeroRow(startRow)) startRow++;
-            while (allZeroCol(startCol)) startCol++;
-            for (int i = 0; i < height; i++)
-            {
-                rows.Add(new int[width - startCol]);
-            }
-            if (width + height + startCol + startCol != 0)
-                reduced = rows.ToArray();
-            for (int i = startRow, r = 0; i < height; i++, r++)
-            {
-                for (int j = startCol, c = 0; j < width; j++, c++)
-                {
-                    Array.Copy(board[i], i, (int[])reduced[r], r, width - startCol - 1);
-                }
 
+            while (allZeroCol(startCol)) startCol++; // reduce left
+            while (allZeroCol(width)) width--; // reduce right
+            while (allZeroRow(startRow)) startRow++; // reduce top
+            while (allZeroRow(height)) height--; // reduce bottom
+   
+            for (int i = 0; i < height - startRow; i++)
+            {
+                int length = width - startCol == 0 ? 1 : width - startCol;
+                newboard.Add(new int[length]);
+            }
+
+            Console.WriteLine("Start = [{0}][{1}]", startRow, startCol);
+            Console.WriteLine("Width = {0}", newboard[0].Length);
+            Console.WriteLine("Height = {0}", height);
+
+            for (int i = startRow, r = 0; i <= newboard.Count; i++, r++)
+            {
+                for (int j = startCol, c = 0; j <= newboard[0].Length; j++, c++)
+                {
+                    try
+                    {
+                        int t =  board[i][j];
+                        newboard[r][c] = t;
+                    }
+                    catch (Exception)
+                    {
+//                        Console.WriteLine("board[{0}][{1}] is out of bounds", i, j);
+                        continue;
+                    }
+//                    Array.Copy(board[i], i, (int[])reduced[r], r, width - startCol - 1);
+                }
+            }
+            foreach (int[] r in newboard)
+            {
+                foreach (int col in r)
+                {
+                    Console.Write(col);
+                }
+                Console.WriteLine();
             }
         }
 
@@ -434,7 +467,7 @@ namespace ConsoleApplications.RookPolynomial
 
         public object Clone()
         {
-            return new Board(this.board);
+            return new Chessboard(this.board);
         }
     }
 }
