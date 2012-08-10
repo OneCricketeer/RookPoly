@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.rowBox = new System.Windows.Forms.TextBox();
+            this.rowsLabel = new System.Windows.Forms.Label();
+            this.colsLabel = new System.Windows.Forms.Label();
+            this.colBox = new System.Windows.Forms.TextBox();
+            this.generateButton = new System.Windows.Forms.Button();
+            this.rowStar = new System.Windows.Forms.Label();
+            this.colStar = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -50,86 +50,88 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.UseCompatibleTextRendering = true;
             // 
-            // textBox1
+            // rowBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(66, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(73, 20);
-            this.textBox1.TabIndex = 1;
+            this.rowBox.Location = new System.Drawing.Point(62, 95);
+            this.rowBox.Name = "rowBox";
+            this.rowBox.Size = new System.Drawing.Size(73, 20);
+            this.rowBox.TabIndex = 1;
+            this.rowBox.TextChanged += new System.EventHandler(this.rowBox_TextChanged);
             // 
-            // label2
+            // rowsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Rows: ";
+            this.rowsLabel.AutoSize = true;
+            this.rowsLabel.Location = new System.Drawing.Point(20, 98);
+            this.rowsLabel.Name = "rowsLabel";
+            this.rowsLabel.Size = new System.Drawing.Size(40, 13);
+            this.rowsLabel.TabIndex = 2;
+            this.rowsLabel.Text = "Rows: ";
             // 
-            // label3
+            // colsLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(145, 98);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Columns: ";
+            this.colsLabel.AutoSize = true;
+            this.colsLabel.Location = new System.Drawing.Point(145, 98);
+            this.colsLabel.Name = "colsLabel";
+            this.colsLabel.Size = new System.Drawing.Size(53, 13);
+            this.colsLabel.TabIndex = 3;
+            this.colsLabel.Text = "Columns: ";
             // 
-            // textBox2
+            // colBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(199, 95);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(73, 20);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.colBox.Location = new System.Drawing.Point(199, 95);
+            this.colBox.Name = "colBox";
+            this.colBox.Size = new System.Drawing.Size(73, 20);
+            this.colBox.TabIndex = 4;
+            this.colBox.TextChanged += new System.EventHandler(this.colBox_TextChanged);
             // 
-            // button1
+            // generateButton
             // 
-            this.button1.Location = new System.Drawing.Point(110, 135);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Generate";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.generateButton.Location = new System.Drawing.Point(110, 135);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(75, 23);
+            this.generateButton.TabIndex = 5;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
-            // label4
+            // rowStar
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(57, 92);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(11, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "*";
-            this.label4.Visible = false;
+            this.rowStar.AutoSize = true;
+            this.rowStar.ForeColor = System.Drawing.Color.Red;
+            this.rowStar.Location = new System.Drawing.Point(51, 92);
+            this.rowStar.Name = "rowStar";
+            this.rowStar.Size = new System.Drawing.Size(11, 13);
+            this.rowStar.TabIndex = 6;
+            this.rowStar.Text = "*";
+            this.rowStar.Visible = false;
             // 
-            // label5
+            // colStar
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(188, 92);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(11, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "*";
-            this.label5.Visible = false;
+            this.colStar.AutoSize = true;
+            this.colStar.ForeColor = System.Drawing.Color.Red;
+            this.colStar.Location = new System.Drawing.Point(188, 92);
+            this.colStar.Name = "colStar";
+            this.colStar.Size = new System.Drawing.Size(11, 13);
+            this.colStar.TabIndex = 7;
+            this.colStar.Text = "*";
+            this.colStar.Visible = false;
             // 
             // InitBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 183);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.generateButton);
+            this.Controls.Add(this.colsLabel);
+            this.Controls.Add(this.rowsLabel);
+            this.Controls.Add(this.rowBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.rowStar);
+            this.Controls.Add(this.colStar);
+            this.Controls.Add(this.colBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "InitBoard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rook Polynomial Initializer";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -139,12 +141,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox rowBox;
+        private System.Windows.Forms.Label rowsLabel;
+        private System.Windows.Forms.Label colsLabel;
+        private System.Windows.Forms.TextBox colBox;
+        private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.Label rowStar;
+        private System.Windows.Forms.Label colStar;
     }
 }

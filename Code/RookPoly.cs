@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ConsoleApplications.RookPolynomial
 {
      public class RookPoly
     {
-        Chessboard board = new Chessboard();
+         Chessboard board;
         
         // Calculates and returns the rook polynomial for the given board matrix
         public static void solve(Chessboard board)
         {
-            if (board.Count == 0)
+            if (board.Tiles == 0)
                 board.polynomial = new Polynomial();
             int[] intersect = board.greatestIntersection;
             Polynomial x = new Polynomial(0, 1);
@@ -26,7 +27,7 @@ namespace ConsoleApplications.RookPolynomial
         }
 
         // Prints the board based on a 0-1 matrix with 1 being valid tiles
-        public static string printBoard(int[][] board)
+        public static string printBoard(List<int[]> board)
         {
             #region Initializataion
 
