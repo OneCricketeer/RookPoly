@@ -1,6 +1,7 @@
 RookPoly
-http://www.youtube.com/watch?v=5HjWGSzAq4Q&feature=plcp
 ========
+#### Watch it on Youtube! (click the image)
+[![See it in action on Youtube](http://img.youtube.com/vi/5HjWGSzAq4Q/0.jpg)](http://www.youtube.com/watch?v=5HjWGSzAq4Q)
 
 A Rook Polynomial mathematically describes the number of ways to place 
 0 ... (the lesser of m and n) rook chess pieces on a m x n chess board.
