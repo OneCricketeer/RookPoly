@@ -20,8 +20,10 @@ We start with 1 way to place 0 rooks on any board.
 Then we acquire more cases, which will now on be described in polynomial notation as above. 
 ```
 +---+
-|   | = 1 + x (1 way to place 0, and 1 way to place 1)\n
+|   | = 1 + x 
 +---+
+
+"1 + x" mathematically represents 1 way to place 0 rooks, and 1 way to place a single rook.  
 
 +---+---+
 |   |   | = 1 + 2x
